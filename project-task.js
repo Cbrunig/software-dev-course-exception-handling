@@ -41,12 +41,13 @@ Your job is to fix it!
 // ============================================
 // 🐞 Initial Code with Bugs (to be debugged)
 // ============================================
+const readline = require('readline-sync');
 
 let animals = [];
 let fees = [];
 
 function addAnimal(name, fee) {
-    if (!name || fee < 0) {
+    if (!name || fee < 0 || isNaN(fee)) {
         throw new Error("Invalid animal name or adoption fee!");
     }
     animals.push(name);
@@ -69,7 +70,7 @@ console.log("Welcome to the Pet Shelter System");
 
 while (true) {
     try {
-        let action = prompt("Choose an action: 'add', 'fee', or 'exit': ").toLowerCase();
+        let action = readline.question("Choose an action: 'add', 'fee', or 'exit': ").toLowerCase();
 
         if (action === "exit") {
             console.log("Goodbye!");
@@ -77,8 +78,8 @@ while (true) {
         }
 
         if (action === "add") {
-            let animal = prompt("Enter the animal's name: ");
-            let fee = Number(prompt("Enter the adoption fee: "));
+            let animal = readline.question("Enter the animal's name: ");
+            let fee = Number(readline.question("Enter the adoption fee: "));
 
             try {
                 addAnimal(animal, fee);
@@ -88,7 +89,7 @@ while (true) {
             }
 
         } else if (action === "fee") {
-            let animal = prompt("Enter the animal's name to find its adoption fee: ");
+            let animal = readline.question("Enter the animal's name to find its adoption fee: ");
 
             try {
                 let fee = getAdoptionFee(animal);
